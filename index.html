@@ -31,7 +31,7 @@
       <div
         class="w-full bg-yellow-100 border border-yellow-300 p-2 sm:p-4 rounded-lg mb-4 sm:mb-6 flex flex-col sm:flex-row justify-between items-center">
         <div class="flex items-center mb-2 sm:mb-0">
-          <svg class="w-3 h-3 sm:w-6 sm:h-6 mr-1 sm:mr-2 text-yellow-800" fill="none" stroke="currentColor"
+          <svg class="w-4 h-4 sm:w-6 sm:h-6 mr-1 sm:mr-2 text-yellow-800" fill="none" stroke="currentColor"
             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M12 8v4l3 3m9-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -39,8 +39,7 @@
           <span class="text-xs sm:text-base text-yellow-800 font-bold">LIMITED TIME OFFER</span>
         </div>
         <div class="text-xs sm:text-base text-yellow-800 mb-2 sm:mb-0" id="countdown">01:30:00</div>
-        <div
-          class="text-xs sm:text-base text-yellow-800 bg-yellow-300 w-full flex justify-center p-1 rounded-md sm:bg-transparent sm:w-fit">
+        <div class="text-xs sm:text-base text-yellow-800">
           <span>GET 10% OFF</span>
           <span class="font-bold">Use Code: EXAMSTART</span>
         </div>
@@ -98,7 +97,6 @@
     </main>
   </div>
   <script>
-    // Function to start the countdown
     function startCountdown(duration, display) {
       let timer = duration, hours, minutes, seconds;
       setInterval(function () {
@@ -113,31 +111,27 @@
         display.textContent = hours + ":" + minutes + ":" + seconds;
 
         if (--timer < 0) {
-          timer = duration; // Reset timer when it reaches zero
+          timer = duration;
         }
       }, 1000);
     }
 
-    // Check if there's a saved end time in localStorage
     let endTime = localStorage.getItem('countdownEndTime');
     const display = document.querySelector('#countdown');
 
     if (endTime) {
-      // Calculate the remaining time
       const now = new Date().getTime();
-      const remainingTime = (endTime - now) / 1000; // convert milliseconds to seconds
+      const remainingTime = (endTime - now) / 1000;
 
       if (remainingTime > 0) {
         startCountdown(remainingTime, display);
       } else {
-        // Timer has already ended
         localStorage.removeItem('countdownEndTime');
-        startCountdown(1 * 60 * 60 + 30 * 60, display); // Default 1 hour 30 minutes
+        startCountdown(1 * 60 * 60 + 30 * 60, display);
       }
     } else {
-      // Set the end time and start the countdown
-      const duration = 1 * 60 * 60 + 30 * 60; // 1 hour 30 minutes
-      endTime = new Date().getTime() + duration * 1000; // calculate end time in milliseconds
+      const duration = 1 * 60 * 60 + 30 * 60;
+      endTime = new Date().getTime() + duration * 1000;
       localStorage.setItem('countdownEndTime', endTime);
       startCountdown(duration, display);
     }
