@@ -112,6 +112,8 @@
 
         if (--timer < 0) {
           timer = duration;
+          const newEndTime = new Date().getTime() + duration * 1000;
+          localStorage.setItem('countdownEndTime', newEndTime);
         }
       }, 1000);
     }
@@ -126,16 +128,19 @@
       if (remainingTime > 0) {
         startCountdown(remainingTime, display);
       } else {
+      
         localStorage.removeItem('countdownEndTime');
-        startCountdown(1 * 60 * 60 + 30 * 60, display);
+        const duration = 1 * 60 * 60 + 30 * 60;
+        const newEndTime = new Date().getTime() + duration * 1000;
+        localStorage.setItem('countdownEndTime', newEndTime);
+        startCountdown(duration, display);
       }
     } else {
       const duration = 1 * 60 * 60 + 30 * 60;
       endTime = new Date().getTime() + duration * 1000;
       localStorage.setItem('countdownEndTime', endTime);
       startCountdown(duration, display);
-    }
-  </script>
+    }  </script>
 </body>
 
 </html>
